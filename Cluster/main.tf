@@ -1,5 +1,5 @@
 provider "aws" {
-  region = "us-east-1"
+  region = "ap-south-1"
 }
 
 resource "aws_vpc" "mykubeproject_vpc" {
@@ -14,7 +14,7 @@ resource "aws_subnet" "mykubeproject_subnet" {
   count = 2
   vpc_id                  = aws_vpc.mykubeproject_vpc.id
   cidr_block              = cidrsubnet(aws_vpc.mykubeproject_vpc.cidr_block, 8, count.index)
-  availability_zone       = element(["us-east-1a", "us-east-1b"], count.index)
+  availability_zone       = element(["ap-south-1a", "ap-south-1b"], count.index)
   map_public_ip_on_launch = true
 
   tags = {
@@ -111,7 +111,7 @@ resource "aws_eks_node_group" "mykubeproject" {
   instance_types = ["t2.large"]
 
   remote_access {
-    ec2_ssh_key = "blue-green.new.pem"
+    ec2_ssh_key = "bluegreen.pem"
     source_security_group_ids = [aws_security_group.mykubeproject_node_sg.id]
   }
 }
