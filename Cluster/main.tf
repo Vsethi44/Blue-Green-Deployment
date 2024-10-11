@@ -111,7 +111,7 @@ resource "aws_eks_node_group" "mykubeproject" {
   instance_types = ["t2.large"]
 
   remote_access {
-    ec2_ssh_key = "bluegreen.pem"
+    ec2_ssh_key = "bluegreen"
     source_security_group_ids = [aws_security_group.mykubeproject_node_sg.id]
   }
 }
